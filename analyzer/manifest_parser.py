@@ -26,8 +26,12 @@ def extract_permissions(manifest):
 
     return {
         "permissions": manifest.get("permissions", []),
-        "optional_permissions": manifest.get("optional_permissions", []),
-        "host_permissions": manifest.get("host_permissions", []),
+        "optional_permissions": manifest.get(
+            "optional_permissions", []
+        ),
+        "host_permissions": manifest.get(
+            "host_permissions", []
+        ),
         "optional_host_permissions": manifest.get(
             "optional_host_permissions", []
         ),
@@ -44,14 +48,16 @@ def summarize_manifest(extension_directory):
     return {
         "name": manifest.get("name", "Unknown"),
         "version": manifest.get("version", "Unknown"),
-        "manifest_version": manifest.get("manifest_version", "Unknown"),
+        "manifest_version": manifest.get(
+            "manifest_version", "Unknown"
+        ),
         "permissions": extract_permissions(manifest),
     }
 
 
 if __name__ == "__main__":
-    import sys
     import pprint
+    import sys
 
     if len(sys.argv) != 2:
         print(
@@ -63,8 +69,15 @@ if __name__ == "__main__":
     extension_directory = sys.argv[1]
 
     try:
-        result = summarize_manifest(extension_directory)
+        result = summarize_manifest(
+            extension_directory
+        )
+
         pprint.pp(result)
 
-    except (FileNotFoundError, json.JSONDecodeError) as error:
+    except (
+        FileNotFoundError,
+        json.JSONDecodeError,
+    ) as error:
+
         print(f"Error: {error}")
