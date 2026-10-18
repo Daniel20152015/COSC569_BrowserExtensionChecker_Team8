@@ -156,30 +156,39 @@ def member_expression_to_name(node):
 def analyze_dom_access(source, file_path):
     """
     Identify potentially sensitive DOM/user-data access.
+
+    Searches the entire JavaScript source so patterns can
+    span multiple lines.
     """
 
     findings = []
 
     source_lines = source.splitlines()
 
-    for line_number, line in enumerate(
-        source_lines,
-        start=1,
-    ):
+    for pattern_name, pattern in DOM_PATTERNS.items():
 
-        for pattern_name, pattern in DOM_PATTERNS.items():
+        for match in pattern.finditer(source):
 
-            if pattern.search(line):
+            # Convert character position to source line number
+            line_number = (
+                source.count("\n", 0, match.start()) + 1
+            )
 
-                findings.append(
-                    make_finding(
-                        "dom_access",
-                        pattern_name,
-                        file_path,
-                        line_number,
-                        line,
-                    )
+            # Use the starting source line as the snippet
+            if 1 <= line_number <= len(source_lines):
+                snippet = source_lines[line_number - 1]
+            else:
+                snippet = match.group(0)
+
+            findings.append(
+                make_finding(
+                    "dom_access",
+                    pattern_name,
+                    file_path,
+                    line_number,
+                    snippet,
                 )
+            )
 
     return findings
 
