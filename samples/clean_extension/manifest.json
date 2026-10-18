@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Clean Test Extension",
+    "version": "1.0",
+    "description": "Simple test extension for our analyzer",
+
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+
+    "host_permissions": [
+        "https://example.com/*"
+    ],
+
+    "background": {
+        "service_worker": "background.js"
+    }
+}
