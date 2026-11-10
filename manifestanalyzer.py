@@ -65,6 +65,14 @@ EXTRACTED_FIELDS = {
     "key",
 }
 
+def read_manifest_file(file_path):
+    with Path(file_path).open("r", encoding="utf-8") as file:
+        manifest = json.load(file)
+
+    if not isinstance(manifest, dict):
+        raise ValueError("Manifest must be a JSON object.")
+
+    return manifest
 
 def read_manifest(zip_path):
     """Read manifest.json from the root of a ZIP package."""
@@ -344,7 +352,8 @@ def analyze_manifest(manifest):
 
 
 if __name__ == "__main__":
-    zip_path = "oedkbkpngfmjfbmmmijkogojlcddmcgf.zip"
+    # zip_path = "oedkbkpngfmjfbmmmijkogojlcddmcgf.zip"
+    zip_path = "eimadpbcbfnmbkopoojfekhnkhdbieeh.zip"
 
     try:
         manifest = read_manifest(zip_path)
