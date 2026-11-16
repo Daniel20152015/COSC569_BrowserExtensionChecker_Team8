@@ -1,0 +1,933 @@
+{
+  "schema_version": "1.0",
+  "extension": {
+    "name": "React Developer Tools",
+    "short_name": null,
+    "version": "8.0.0",
+    "version_name": "8.0.0",
+    "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 1d34f91dfd.",
+    "author": null,
+    "homepage_url": null,
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "minimum_chrome_version": "114",
+    "default_locale": null,
+    "manifest_version": 3,
+    "icons": {
+      "16": "icons/16-production.png",
+      "32": "icons/32-production.png",
+      "48": "icons/48-production.png",
+      "128": "icons/128-production.png"
+    }
+  },
+  "manifest": {
+    "extension": {
+      "name": "React Developer Tools",
+      "short_name": null,
+      "version": "8.0.0",
+      "version_name": "8.0.0",
+      "description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 1d34f91dfd.",
+      "author": null,
+      "homepage_url": null,
+      "update_url": "https://clients2.google.com/service/update2/crx",
+      "minimum_chrome_version": "114",
+      "default_locale": null,
+      "manifest_version": 3,
+      "icons": {
+        "16": "icons/16-production.png",
+        "32": "icons/32-production.png",
+        "48": "icons/48-production.png",
+        "128": "icons/128-production.png"
+      }
+    },
+    "permissions": {
+      "required_api_permissions": [
+        "scripting",
+        "storage",
+        "tabs"
+      ],
+      "optional_api_permissions": [
+        "clipboardWrite"
+      ],
+      "required_host_permissions": [
+        "<all_urls>"
+      ],
+      "optional_host_permissions": [],
+      "sensitive_capabilities": [
+        {
+          "permission": "scripting",
+          "required_or_optional": "required",
+          "meaning": "Programmatic script injection capability"
+        },
+        {
+          "permission": "clipboardWrite",
+          "required_or_optional": "optional",
+          "meaning": "Clipboard write access"
+        }
+      ],
+      "broad_host_patterns": [
+        "<all_urls>"
+      ]
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "<all_urls>"
+        ],
+        "exclude_matches": [],
+        "include_globs": [],
+        "exclude_globs": [],
+        "js_files": [
+          "build/prepareInjection.js"
+        ],
+        "css_files": [],
+        "all_frames": false,
+        "match_about_blank": false,
+        "match_origin_as_fallback": false,
+        "run_at": "document_start",
+        "world": "ISOLATED"
+      }
+    ],
+    "background": {
+      "service_worker": "build/background.js",
+      "scripts": null,
+      "type": null,
+      "persistent": null
+    },
+    "network_and_messaging": {
+      "declarative_net_request": null,
+      "web_accessible_resources": [
+        {
+          "resources": [
+            "main.html",
+            "panel.html",
+            "build/*.js"
+          ],
+          "matches": [
+            "<all_urls>"
+          ],
+          "extension_ids": []
+        }
+      ],
+      "externally_connectable": null
+    },
+    "security_configuration": {
+      "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+      },
+      "sandbox": null,
+      "incognito": null,
+      "key_present": false
+    },
+    "user_interface": {
+      "action": {
+        "default_icon": {
+          "16": "icons/16-disabled.png",
+          "32": "icons/32-disabled.png",
+          "48": "icons/48-disabled.png",
+          "128": "icons/128-disabled.png"
+        },
+        "default_popup": "popups/disabled.html"
+      },
+      "browser_action": null,
+      "page_action": null,
+      "options_page": null,
+      "options_ui": null,
+      "side_panel": null,
+      "devtools_page": "main.html",
+      "commands": null
+    },
+    "other_configuration": {
+      "chrome_settings_overrides": null,
+      "chrome_url_overrides": null,
+      "oauth2": null,
+      "storage": null
+    },
+    "additional_manifest_fields": {},
+    "analysis": {
+      "basic_structure_valid": true,
+      "errors": [],
+      "warnings": [],
+      "review_indicators": [
+        {
+          "rule_id": "R001",
+          "type": "broad_host_access",
+          "severity": "review",
+          "evidence": [
+            "<all_urls>"
+          ],
+          "explanation": "The extension declares broad website access. Check whether its purpose requires this access."
+        },
+        {
+          "rule_id": "R002",
+          "type": "broad_content_script_injection",
+          "severity": "review",
+          "evidence": [
+            {
+              "script_index": 0,
+              "matches": [
+                "<all_urls>"
+              ],
+              "js_files": [
+                "build/prepareInjection.js"
+              ]
+            }
+          ],
+          "explanation": "A content script declares broad matching patterns. Check what information the script accesses on those pages."
+        },
+        {
+          "rule_id": "R005",
+          "type": "programmatic_scripting",
+          "severity": "informational",
+          "evidence": [
+            {
+              "permission": "scripting",
+              "required_or_optional": "required"
+            }
+          ],
+          "explanation": "The extension requests the scripting API, which allows programmatic JavaScript or CSS injection subject to applicable access restrictions."
+        }
+      ],
+      "limitations": [
+        "Manifest analysis identifies declarations, not confirmed runtime behavior.",
+        "Permission sensitivity does not establish malicious intent.",
+        "Review indicators identify behaviors worth investigating, not proof of malicious activity."
+      ]
+    }
+  },
+  "access": {
+    "extension": {
+      "name": "React Developer Tools",
+      "version": "8.0.0"
+    },
+    "declared_permissions": [
+      "clipboardWrite",
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "observed_api_namespaces": [
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "potentially_unused_permissions": [],
+    "observed_without_matching_declaration": [],
+    "dom_access": [
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+        "line": 1,
+        "snippet": "(()=>{var t,n,r={1519:(t,n,r)=>{\"use strict\";var o=r(397),a=r(2572),l=r(1147),s=r(9443);function formatProdErrorMessage(t){var n=\"https://react.dev/errors/\"+t;if(1<arguments.length){n+=\"?args[]=\"+encodeURIComponent(arguments[1]);for(var r=2;r<arguments.length;r++)n+=\"&args[]=\"+encodeURIComponent(arg... [truncated]"
+      }
+    ],
+    "all_findings": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\backendManager.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.scripting.unregisterContentScripts",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.scripting.registerContentScripts",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.query",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.onCreated.addListener",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.onUpdated.addListener",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.scripting.executeScript",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.sendMessage",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.sendMessage",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.onActivated.addListener",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 1,
+        "snippet": "(()=>{var e={5603:()=>{const e=[{id:\"@react-devtools/proxy\",js:[\"build/proxy.js\"],matches:[\"<all_urls>\"],persistAcrossSessions:!0,runAt:\"document_start\",world:chrome.scripting.ExecutionWorld.ISOLATED},{id:\"@react-devtools/file-fetcher\",js:[\"build/fileFetcher.js\"],matches:[\"<all_urls>\"],persistAcross... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fallbackEvalContext.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fileFetcher.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.get",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\hookSettingsInjector.js",
+        "line": 1,
+        "snippet": "(()=>{\"use strict\";var t={3018:(t,e,r)=>{const i=r(5986),n=Symbol(\"max\"),o=Symbol(\"length\"),s=Symbol(\"lengthCalculator\"),l=Symbol(\"allowStale\"),a=Symbol(\"maxAge\"),h=Symbol(\"dispose\"),u=Symbol(\"noDisposeOnSet\"),p=Symbol(\"lruList\"),c=Symbol(\"cache\"),f=Symbol(\"updateAgeOnGet\"),naiveLength=()=>1;const g... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\installHook.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token {"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+        "line": 1,
+        "snippet": "(()=>{var t,n,r={1519:(t,n,r)=>{\"use strict\";var o=r(397),a=r(2572),l=r(1147),s=r(9443);function formatProdErrorMessage(t){var n=\"https://react.dev/errors/\"+t;if(1<arguments.length){n+=\"?args[]=\"+encodeURIComponent(arguments[1]);for(var r=2;r<arguments.length;r++)n+=\"&args[]=\"+encodeURIComponent(arg... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\parseSourceAndMetadata.worker.worker.js",
+        "line": 0,
+        "snippet": "Line 13: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\proxy.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\react_devtools_backend_compact.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.create",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\popups\\shared.js",
+        "line": 13,
+        "snippet": "chrome.tabs.create({active: true, url: location});"
+      }
+    ],
+    "analysis_note": "This is a static heuristic analysis. Unobserved API usage does not prove a permission is unnecessary or an extension is malicious. Optional permissions may be requested later. Some Chrome API calls do not require a same-named permission. Dynamic or indirect API usage may not be detected. A parse error makes non-use inconclusive.",
+    "required_permissions": [
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "optional_permissions": [
+      "clipboardWrite"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "optional_host_permissions": [],
+    "optional_permissions_without_observed_usage": [],
+    "analysis_complete": false,
+    "analysis_status": "partial",
+    "parse_errors": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\backendManager.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fallbackEvalContext.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fileFetcher.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\installHook.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token {"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\parseSourceAndMetadata.worker.worker.js",
+        "line": 0,
+        "snippet": "Line 13: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\proxy.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\react_devtools_backend_compact.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      }
+    ],
+    "inconclusive_permissions": [],
+    "analysis": {
+      "review_indicators": [
+        {
+          "rule_id": "A005",
+          "type": "incomplete_access_analysis",
+          "severity": "review",
+          "evidence": [
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\backendManager.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fallbackEvalContext.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fileFetcher.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\installHook.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token {"
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\parseSourceAndMetadata.worker.worker.js",
+                "line": 0,
+                "snippet": "Line 13: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\proxy.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\react_devtools_backend_compact.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            }
+          ],
+          "explanation": "At least part of the JavaScript analysis was incomplete. Do not conclude that unobserved permissions are unused from this scan."
+        }
+      ],
+      "limitations": [
+        "Rules flag source-code evidence for review; they do not prove malicious behavior.",
+        "Absence of an observed API call does not prove a permission is unnecessary.",
+        "An API namespace may be usable without a same-named permission declaration.",
+        "Static DOM detection can have false positives and does not establish data exfiltration."
+      ]
+    }
+  },
+  "network": {
+    "findings": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\backendManager.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fallbackEvalContext.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\fileFetcher.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "obfuscation",
+        "api_or_pattern": "heuristic",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\hookSettingsInjector.js",
+        "line": 1,
+        "snippet": "",
+        "enclosing_function": "<file>",
+        "details": {
+          "reasons": [
+            "very_long_lines"
+          ]
+        }
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\installHook.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\main.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token {"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\parseSourceAndMetadata.worker.worker.js",
+        "line": 0,
+        "snippet": "Line 13: Unexpected token ."
+      },
+      {
+        "type": "message_passing",
+        "api_or_pattern": "chrome.runtime.sendMessage",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\prepareInjection.js",
+        "line": 1,
+        "snippet": "(()=>{let e;window.addEventListener(\"message\",(function({data:o,source:n}){if(n===window&&o&&\"react-devtools-hook\"===o.source){const{source:n,payload:s}=o,t={source:n,payload:s};e=t,chrome.runtime.sendMessage(t)}})),window.addEventListener(\"pageshow\",(function({target:o}){e&&o===window.document&&chr... [truncated]",
+        "enclosing_function": "<top-level>",
+        "function_chain": [
+          "anonymous",
+          "anonymous"
+        ],
+        "details": {}
+      },
+      {
+        "type": "message_passing",
+        "api_or_pattern": "chrome.runtime.sendMessage",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\prepareInjection.js",
+        "line": 1,
+        "snippet": "(()=>{let e;window.addEventListener(\"message\",(function({data:o,source:n}){if(n===window&&o&&\"react-devtools-hook\"===o.source){const{source:n,payload:s}=o,t={source:n,payload:s};e=t,chrome.runtime.sendMessage(t)}})),window.addEventListener(\"pageshow\",(function({target:o}){e&&o===window.document&&chr... [truncated]",
+        "enclosing_function": "<top-level>",
+        "function_chain": [
+          "anonymous",
+          "anonymous"
+        ],
+        "details": {}
+      },
+      {
+        "type": "obfuscation",
+        "api_or_pattern": "heuristic",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\prepareInjection.js",
+        "line": 1,
+        "snippet": "",
+        "enclosing_function": "<file>",
+        "details": {
+          "reasons": [
+            "very_long_lines"
+          ]
+        }
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\proxy.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\react_devtools_backend_compact.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      }
+    ],
+    "analysis_status": "partial",
+    "limitations": [
+      "Network and data-flow matches are heuristic, not verified exfiltration."
+    ]
+  },
+  "metadata": {
+    "extension": {
+      "id": "fmkadmapgofadopljbjfkapdkoienihi",
+      "name": "React Developer Tools",
+      "store_url": "https://chromewebstore.google.com/detail/fmkadmapgofadopljbjfkapdkoienihi"
+    },
+    "stated_purpose": {
+      "category": "Developer Tools",
+      "short_description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 1d34f91dfd.",
+      "long_description": "Adds React debugging tools to the Chrome Developer Tools.\nCreated from revision 1d34f91dfd.\nReact Developer Tools is a Chrome DevTools extension for the open-source React JavaScript library. It allows you to inspect the React component hierarchies in the Chrome Developer Tools.\nYou will get two new tabs in your Chrome DevTools: \"Components ⚛\" and \"Profiler ⚛\".\nThe Components tab shows you the root React components that were rendered on the page, as well as the subcomponents that they ended up rendering.\nBy selecting one of the components in the tree, you can inspect and edit its current props and state in the panel on the right. In the breadcrumbs you can inspect the selected component, the component that created it, the component that created that one, and so on.\nIf you inspect a React element on the page using the regular Elements tab, then switch over to the React tab, that element will be automatically selected in the React tree.\nThe Profiler tab allows you to record performance information.\nThis extension requires permissions to access the page's React tree, but it does not transmit any data remotely. It is fully open source, and you can find its source code at https://github.com/facebook/react/tree/main/packages/react-devtools-extensions.",
+      "package_description": "Adds React debugging tools to the Chrome Developer Tools.\n\nCreated from revision 1d34f91dfd."
+    },
+    "popularity": {
+      "users": 5000000,
+      "rating": 3.5,
+      "rating_count": 1600
+    },
+    "maintenance": {
+      "version": "8.0.0",
+      "last_updated": "2026-09-11",
+      "days_since_update": 66,
+      "size": "655KiB"
+    },
+    "developer": {
+      "name": null,
+      "website": "https://www.dnb.com/duns.html",
+      "email": "google-react@lfopensource.com",
+      "trader_status": "trader"
+    },
+    "privacy": {
+      "policy_url": null,
+      "disclosure": "The developer has disclosed that it will not collect or use your data.",
+      "collects_data": false,
+      "collected_data_types": [],
+      "declarations": [
+        "Not being sold to third parties, outside of the",
+        "approved use cases",
+        "Not being used or transferred for purposes that are unrelated to the item's core functionality",
+        "Not being used or transferred to determine creditworthiness or for lending purposes"
+      ]
+    },
+    "developer_explanations": {
+      "permissions": null,
+      "data_usage": null
+    },
+    "badges": {
+      "featured": true,
+      "established_publisher": false,
+      "verified_website": false,
+      "recommended_practices": true
+    },
+    "package": {
+      "path": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y",
+      "file_count": 61,
+      "js_file_count": 13,
+      "total_size_bytes": 2399202,
+      "version": "8.0.0",
+      "update_url": "https://clients2.google.com/service/update2/crx",
+      "expected_id": "fmkadmapgofadopljbjfkapdkoienihi",
+      "signed_contents": {
+        "item_id": "fmkadmapgofadopljbjfkapdkoienihi",
+        "item_version": "8.0.0",
+        "signature_keys": [
+          "publisher",
+          "webstore"
+        ],
+        "signed_by_webstore": true,
+        "signed_by_publisher": true,
+        "signed_file_count": 60
+      },
+      "integrity": {
+        "files_checked": 60,
+        "files_matching": 60,
+        "files_modified": [],
+        "files_not_in_signed_list": [],
+        "signed_files_missing_from_package": []
+      }
+    },
+    "manifest_crosscheck": {
+      "package_version": "8.0.0",
+      "listing_version": "8.0.0",
+      "version_matches": true,
+      "developer_explained_permissions": false,
+      "declared_permissions": [
+        "clipboardWrite",
+        "scripting",
+        "storage",
+        "tabs"
+      ],
+      "permissions_not_mentioned_in_listing": [
+        "clipboardWrite",
+        "scripting",
+        "storage"
+      ],
+      "note": "A permission name missing from the listing text only means the developer did not use that word; many listings never mention permissions at all."
+    },
+    "analysis": {
+      "basic_structure_valid": true,
+      "errors": [],
+      "warnings": [],
+      "review_indicators": [
+        {
+          "rule_id": "M005",
+          "type": "no_privacy_policy",
+          "severity": "review",
+          "evidence": [
+            {
+              "privacy_policy_url": null
+            }
+          ],
+          "explanation": "The listing has no privacy policy link."
+        }
+      ],
+      "trust_indicators": [
+        {
+          "rule_id": "T001",
+          "type": "featured",
+          "severity": "informational",
+          "evidence": [
+            {
+              "featured": true
+            }
+          ],
+          "explanation": "Featured by the Chrome Web Store."
+        },
+        {
+          "rule_id": "T004",
+          "type": "recommended_practices",
+          "severity": "informational",
+          "evidence": [
+            {
+              "recommended_practices": true
+            }
+          ],
+          "explanation": "Follows recommended practices for Chrome extensions."
+        },
+        {
+          "rule_id": "T005",
+          "type": "widely_used",
+          "severity": "informational",
+          "evidence": [
+            {
+              "users": 5000000
+            }
+          ],
+          "explanation": "Many people use this extension."
+        },
+        {
+          "rule_id": "T101",
+          "type": "signed_by_webstore",
+          "severity": "informational",
+          "evidence": [
+            {
+              "signature_keys": [
+                "publisher",
+                "webstore"
+              ]
+            }
+          ],
+          "explanation": "The file list is signed by the Chrome Web Store."
+        },
+        {
+          "rule_id": "T102",
+          "type": "files_match_signed_hashes",
+          "severity": "informational",
+          "evidence": [
+            {
+              "files_checked": 60
+            }
+          ],
+          "explanation": "Every file in the package matches its signed hash."
+        }
+      ],
+      "limitations": [
+        "Metadata rules flag declarations and public listing text for review; they do not prove malicious behavior.",
+        "Store listing text is written by the developer and may be inaccurate or out of date.",
+        "File hashes are compared with verified_contents.json, but the signatures on that file are not cryptographically verified.",
+        "Package integrity rules need the complete package; a partial copy reports the missing files.",
+        "Thresholds such as user counts and update age are heuristics."
+      ]
+    },
+    "source": {
+      "store_listing": "http",
+      "listing_available": true,
+      "package": "provided",
+      "retrieved_at": "2026-11-16T18:41:53"
+    }
+  },
+  "cross_indicators": [
+    {
+      "rule_id": "C002",
+      "type": "sensitive_permissions_without_privacy_information",
+      "severity": "review",
+      "evidence": [
+        {
+          "sensitive_permissions": [
+            "clipboardWrite",
+            "scripting"
+          ],
+          "metadata_indicators": [
+            "no_privacy_policy"
+          ]
+        }
+      ],
+      "explanation": "The extension requests sensitive permissions but its listing gives no privacy policy or data disclosure. Review what data those permissions can reach."
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Static analysis does not establish actual runtime behavior or malicious intent."
+  ],
+  "analysis_status": "partial",
+  "risk_assessment": {
+    "score": 27,
+    "rating": "moderate",
+    "meaning": "Review priority based on static indicators; not a probability of malware or proof of compromise.",
+    "policy_version": "1.0",
+    "contributors": [
+      {
+        "source": "manifest",
+        "type": "broad_host_access",
+        "points": 12,
+        "rule_id": "R001"
+      },
+      {
+        "source": "manifest",
+        "type": "broad_content_script_injection",
+        "points": 8,
+        "rule_id": "R002"
+      },
+      {
+        "source": "metadata",
+        "type": "no_privacy_policy",
+        "points": 3,
+        "rule_id": "M005"
+      },
+      {
+        "source": "network",
+        "type": "obfuscation",
+        "points": 4,
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_ymireh7y\\build\\hookSettingsInjector.js",
+        "line": 1
+      }
+    ],
+    "confidence_note": "Incomplete analysis reduces confidence; missing evidence is not evidence of safety."
+  }
+}

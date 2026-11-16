@@ -1,0 +1,824 @@
+{
+  "schema_version": "1.0",
+  "extension": {
+    "name": "__MSG_extName__",
+    "short_name": null,
+    "version": "3.0.6",
+    "version_name": null,
+    "description": "__MSG_extDescription__",
+    "author": null,
+    "homepage_url": null,
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "minimum_chrome_version": null,
+    "default_locale": "en",
+    "manifest_version": 3,
+    "icons": {
+      "32": "assets/manifest_icons/icon32.png",
+      "48": "assets/manifest_icons/icon48.png",
+      "96": "assets/manifest_icons/icon96.png",
+      "128": "assets/manifest_icons/icon128.png",
+      "256": "assets/manifest_icons/icon256.png"
+    }
+  },
+  "manifest": {
+    "extension": {
+      "name": "__MSG_extName__",
+      "short_name": null,
+      "version": "3.0.6",
+      "version_name": null,
+      "description": "__MSG_extDescription__",
+      "author": null,
+      "homepage_url": null,
+      "update_url": "https://clients2.google.com/service/update2/crx",
+      "minimum_chrome_version": null,
+      "default_locale": "en",
+      "manifest_version": 3,
+      "icons": {
+        "32": "assets/manifest_icons/icon32.png",
+        "48": "assets/manifest_icons/icon48.png",
+        "96": "assets/manifest_icons/icon96.png",
+        "128": "assets/manifest_icons/icon128.png",
+        "256": "assets/manifest_icons/icon256.png"
+      }
+    },
+    "permissions": {
+      "required_api_permissions": [
+        "storage",
+        "scripting"
+      ],
+      "optional_api_permissions": [],
+      "required_host_permissions": [
+        "http://localhost/*",
+        "https://bro-mon.world/*",
+        "https://*.bro-mon.world/*"
+      ],
+      "optional_host_permissions": [],
+      "sensitive_capabilities": [
+        {
+          "permission": "scripting",
+          "required_or_optional": "required",
+          "meaning": "Programmatic script injection capability"
+        }
+      ],
+      "broad_host_patterns": []
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "*://*/*"
+        ],
+        "exclude_matches": [],
+        "include_globs": [],
+        "exclude_globs": [],
+        "js_files": [
+          "content_script.js"
+        ],
+        "css_files": [],
+        "all_frames": false,
+        "match_about_blank": false,
+        "match_origin_as_fallback": false,
+        "run_at": "document_idle",
+        "world": "ISOLATED"
+      }
+    ],
+    "background": {
+      "service_worker": "background.js",
+      "scripts": null,
+      "type": null,
+      "persistent": null
+    },
+    "network_and_messaging": {
+      "declarative_net_request": null,
+      "web_accessible_resources": [
+        {
+          "resources": [
+            "assets/images/*",
+            "assets/fonts/*",
+            "content_script.css",
+            "battle_app.css",
+            "portals_script.css"
+          ],
+          "matches": [
+            "*://*/*"
+          ]
+        }
+      ],
+      "externally_connectable": {
+        "matches": [
+          "http://localhost/*",
+          "https://bro-mon.world/*",
+          "https://*.bro-mon.world/*"
+        ]
+      }
+    },
+    "security_configuration": {
+      "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';"
+      },
+      "sandbox": null,
+      "incognito": null,
+      "key_present": true
+    },
+    "user_interface": {
+      "action": {
+        "default_popup": "popup.html"
+      },
+      "browser_action": null,
+      "page_action": null,
+      "options_page": null,
+      "options_ui": null,
+      "side_panel": null,
+      "devtools_page": null,
+      "commands": null
+    },
+    "other_configuration": {
+      "chrome_settings_overrides": null,
+      "chrome_url_overrides": null,
+      "oauth2": null,
+      "storage": null
+    },
+    "additional_manifest_fields": {},
+    "analysis": {
+      "basic_structure_valid": true,
+      "errors": [],
+      "warnings": [],
+      "review_indicators": [
+        {
+          "rule_id": "R002",
+          "type": "broad_content_script_injection",
+          "severity": "review",
+          "evidence": [
+            {
+              "script_index": 0,
+              "matches": [
+                "*://*/*"
+              ],
+              "js_files": [
+                "content_script.js"
+              ]
+            }
+          ],
+          "explanation": "A content script declares broad matching patterns. Check what information the script accesses on those pages."
+        },
+        {
+          "rule_id": "R005",
+          "type": "programmatic_scripting",
+          "severity": "informational",
+          "evidence": [
+            {
+              "permission": "scripting",
+              "required_or_optional": "required"
+            }
+          ],
+          "explanation": "The extension requests the scripting API, which allows programmatic JavaScript or CSS injection subject to applicable access restrictions."
+        }
+      ],
+      "limitations": [
+        "Manifest analysis identifies declarations, not confirmed runtime behavior.",
+        "Permission sensitivity does not establish malicious intent.",
+        "Review indicators identify behaviors worth investigating, not proof of malicious activity."
+      ]
+    }
+  },
+  "access": {
+    "extension": {
+      "name": "__MSG_extName__",
+      "version": "3.0.6"
+    },
+    "declared_permissions": [
+      "scripting",
+      "storage"
+    ],
+    "observed_api_namespaces": [
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "potentially_unused_permissions": [],
+    "observed_without_matching_declaration": [
+      "tabs"
+    ],
+    "dom_access": [
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+        "line": 128,
+        "snippet": "`),Xs.rippleVisible,qs,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.ripplePulsate,(({theme:t})=>t.transitions.duration.shorter),Xs.child,Xs.childLeaving,$s,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.childPulsate,Zs,(({theme:t})=>t.transitions.easing.easeInOut)),to=v.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+        "line": 128,
+        "snippet": "`),Xs.rippleVisible,Ks,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.ripplePulsate,(({theme:t})=>t.transitions.duration.shorter),Xs.child,Xs.childLeaving,$s,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.childPulsate,Qs,(({theme:t})=>t.transitions.easing.easeInOut)),to=b.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 2,
+        "snippet": "try{let e=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},t=(new e.Error).stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=\"37c36a22-950f-4eec-908e-f8270ecb46cb\",e._sentryDebugIdIdent... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 2,
+        "snippet": "try{let e=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},t=(new e.Error).stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=\"37c36a22-950f-4eec-908e-f8270ecb46cb\",e._sentryDebugIdIdent... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 75,
+        "snippet": "`),Rf.rippleVisible,Df,550,(({theme:e})=>e.transitions.easing.easeInOut),Rf.ripplePulsate,(({theme:e})=>e.transitions.duration.shorter),Rf.child,Rf.childLeaving,Lf,550,(({theme:e})=>e.transitions.easing.easeInOut),Rf.childPulsate,$f,(({theme:e})=>e.transitions.easing.easeInOut)),Bf=B.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+        "line": 165,
+        "snippet": "`),$p))),rf=e.forwardRef((function(e,i){const n=(0,Q.A)({props:e,name:\"MuiLinearProgress\"}),{className:r,color:s=\"primary\",value:o,valueBuffer:a,variant:l=\"indeterminate\"}=n,h=(0,H.A)(n,jp),u=(0,q.A)({},n,{color:s,variant:l}),c=(t=>{const{classes:e,variant:i,color:n}=t,r={root:[\"root\",`color${(0,Qo.... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+        "line": 128,
+        "snippet": "`),ud))),vd=s.forwardRef((function(e,r){const s=(0,Xs.A)({props:e,name:\"MuiLinearProgress\"}),{className:o,color:a=\"primary\",value:l,valueBuffer:h,variant:u=\"indeterminate\"}=s,c=(0,n.A)(s,ed),d=(0,i.A)({},s,{color:a,variant:u}),f=(t=>{const{classes:e,variant:i,color:n}=t,r={root:[\"root\",`color${(0,js... [truncated]"
+      }
+    ],
+    "all_findings": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.get",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.get",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.getBytesInUse",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.set",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.set",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.remove",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.storage.local.remove",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.scripting.executeScript",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.scripting.insertCSS",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "chrome_api",
+        "api_or_pattern": "chrome.tabs.create",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 1,
+        "snippet": "try{let t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},e=(new t.Error).stack;e&&(t._sentryDebugIds=t._sentryDebugIds||{},t._sentryDebugIds[e]=\"2a9e3dde-3ed6-40c5-94e0-7465d0ce07e9\",t._sentryDebugIdIdent... [truncated]",
+        "detection_method": "regex_fallback"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+        "line": 128,
+        "snippet": "`),Xs.rippleVisible,qs,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.ripplePulsate,(({theme:t})=>t.transitions.duration.shorter),Xs.child,Xs.childLeaving,$s,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.childPulsate,Zs,(({theme:t})=>t.transitions.easing.easeInOut)),to=v.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+        "line": 128,
+        "snippet": "`),Xs.rippleVisible,Ks,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.ripplePulsate,(({theme:t})=>t.transitions.duration.shorter),Xs.child,Xs.childLeaving,$s,550,(({theme:t})=>t.transitions.easing.easeInOut),Xs.childPulsate,Qs,(({theme:t})=>t.transitions.easing.easeInOut)),to=b.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 2,
+        "snippet": "try{let e=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},t=(new e.Error).stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=\"37c36a22-950f-4eec-908e-f8270ecb46cb\",e._sentryDebugIdIdent... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 2,
+        "snippet": "try{let e=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof self?self:{},t=(new e.Error).stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=\"37c36a22-950f-4eec-908e-f8270ecb46cb\",e._sentryDebugIdIdent... [truncated]"
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 75,
+        "snippet": "`),Rf.rippleVisible,Df,550,(({theme:e})=>e.transitions.easing.easeInOut),Rf.ripplePulsate,(({theme:e})=>e.transitions.duration.shorter),Rf.child,Rf.childLeaving,Lf,550,(({theme:e})=>e.transitions.easing.easeInOut),Rf.childPulsate,$f,(({theme:e})=>e.transitions.easing.easeInOut)),Bf=B.forwardRef((fun... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+        "line": 165,
+        "snippet": "`),$p))),rf=e.forwardRef((function(e,i){const n=(0,Q.A)({props:e,name:\"MuiLinearProgress\"}),{className:r,color:s=\"primary\",value:o,valueBuffer:a,variant:l=\"indeterminate\"}=n,h=(0,H.A)(n,jp),u=(0,q.A)({},n,{color:s,variant:l}),c=(t=>{const{classes:e,variant:i,color:n}=t,r={root:[\"root\",`color${(0,Qo.... [truncated]"
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "dom_access",
+        "api_or_pattern": "input_access",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+        "line": 128,
+        "snippet": "`),ud))),vd=s.forwardRef((function(e,r){const s=(0,Xs.A)({props:e,name:\"MuiLinearProgress\"}),{className:o,color:a=\"primary\",value:l,valueBuffer:h,variant:u=\"indeterminate\"}=s,c=(0,n.A)(s,ed),d=(0,i.A)({},s,{color:a,variant:u}),f=(t=>{const{classes:e,variant:i,color:n}=t,r={root:[\"root\",`color${(0,js... [truncated]"
+      }
+    ],
+    "analysis_note": "This is a static heuristic analysis. Unobserved API usage does not prove a permission is unnecessary or an extension is malicious. Optional permissions may be requested later. Some Chrome API calls do not require a same-named permission. Dynamic or indirect API usage may not be detected. A parse error makes non-use inconclusive.",
+    "required_permissions": [
+      "scripting",
+      "storage"
+    ],
+    "optional_permissions": [],
+    "host_permissions": [
+      "http://localhost/*",
+      "https://*.bro-mon.world/*",
+      "https://bro-mon.world/*"
+    ],
+    "optional_host_permissions": [],
+    "optional_permissions_without_observed_usage": [],
+    "analysis_complete": false,
+    "analysis_status": "partial",
+    "parse_errors": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      }
+    ],
+    "inconclusive_permissions": [],
+    "analysis": {
+      "review_indicators": [
+        {
+          "rule_id": "A004",
+          "type": "api_namespace_without_same_named_declaration",
+          "severity": "informational",
+          "evidence": [
+            {
+              "api_namespace": "tabs"
+            }
+          ],
+          "explanation": "API calls were observed without same-named permission declarations. This may be valid: not every Chrome API method requires a named permission."
+        },
+        {
+          "rule_id": "A005",
+          "type": "incomplete_access_analysis",
+          "severity": "review",
+          "evidence": [
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+                "line": 0,
+                "snippet": "Line 1: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+                "line": 0,
+                "snippet": "Line 2: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+                "line": 0,
+                "snippet": "Line 2: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+                "line": 0,
+                "snippet": "Line 2: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+                "line": 0,
+                "snippet": "Line 2: Unexpected token ."
+              }
+            },
+            {
+              "parse_error": {
+                "type": "parse_error",
+                "api_or_pattern": "javascript_parse_error",
+                "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+                "line": 0,
+                "snippet": "Line 2: Unexpected token ."
+              }
+            }
+          ],
+          "explanation": "At least part of the JavaScript analysis was incomplete. Do not conclude that unobserved permissions are unused from this scan."
+        }
+      ],
+      "limitations": [
+        "Rules flag source-code evidence for review; they do not prove malicious behavior.",
+        "Absence of an observed API call does not prove a permission is unnecessary.",
+        "An API namespace may be usable without a same-named permission declaration.",
+        "Static DOM detection can have false positives and does not establish data exfiltration."
+      ]
+    }
+  },
+  "network": {
+    "findings": [
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\background.js",
+        "line": 0,
+        "snippet": "Line 1: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\battle_app.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\content_script.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\popup.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\portals_script.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      },
+      {
+        "type": "parse_error",
+        "api_or_pattern": "javascript_parse_error",
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq\\tutorial.bundle.js",
+        "line": 0,
+        "snippet": "Line 2: Unexpected token ."
+      }
+    ],
+    "analysis_status": "partial",
+    "limitations": [
+      "Network and data-flow matches are heuristic, not verified exfiltration."
+    ]
+  },
+  "metadata": {
+    "extension": {
+      "id": "oedkbkpngfmjfbmmmijkogojlcddmcgf",
+      "name": "Bro-Mon 🐾 Browser Monsters - Web Surf Game",
+      "store_url": "https://chromewebstore.google.com/detail/oedkbkpngfmjfbmmmijkogojlcddmcgf"
+    },
+    "stated_purpose": {
+      "category": "Entertainment",
+      "short_description": "Join Bro-Mon game for epic web fun! Catch wild monsters while surfing the web on your browser. #SurfAndSnatch",
+      "long_description": "🎤🦆 Welcome to the Ultimate Bro-Mon Game Adventure! 🎮\n👉 Ready for a browsing experience like no other? Dive into the world of Bro-Mon, where your web journey transforms into an epic monster-hunting quest. 🌐\n👾 Spot new monsters while surfing the web on your favorite sites. They'll pop up randomly, trying to escape your grasp. Your mission? Click fast, engage in battles, and become the ultimate Bro-Mon master! 💪\n-ˋˏ✄┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n🚀 Here's how it works:\n1. 👋 Welcome Page: Start your journey by catching your first bro-mon on the Welcome Page. Get ready to unleash the fun!\n2. 🌐 Surf as Usual: Browse the internet as you normally would. But beware, new monsters lurk around the web, waiting for your challenge.\n3. ⚔️ Catch and Battle: Click on the sneaky monsters to engage in epic battles. Prove your skills and defeat them!\n4. 📦 Grow Your Collection: Victorious? Add the new monsters to your collection. They're not just creatures; they're your companions in this grand adventure!\n-ˋˏ✄┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n🎮 Bro-Mon offers a fresh and cool twist to your browsing routine. Explore sites, enjoy cute monsters, and collect the best bros in town. 🌈\n🌐 So, don't miss out on the trend! Elevate your user experience with this super fun browser extension. It's not just a game; it's a journey. 🚀\n🔥 Install Bro-Mon now and embark on the battle of the browsing century. Your monster crew awaits! 🔥\n 🎩\n👂 👁️ 👄👁️ 👂 🗯️Come and get me\n 🖐️ 🟨🟨 🤚 \n 🟨🟨\n 🟨🟨\n 🦵 🦵\n❤️ 𝚆𝚒𝚝𝚑 𝚕𝚘𝚟𝚎 𝚏𝚛𝚘𝚖 𝚂𝚠𝚎𝚎𝚣𝚢 𝚌𝚛𝚎𝚠 𝚝𝚘 𝚘𝚞𝚛 𝚍𝚎𝚊𝚛 𝚞𝚜𝚎𝚛𝚜.",
+      "package_description": "Join Bro-Mon game for epic web fun! Catch wild monsters while surfing the web on your browser. #SurfAndSnatch"
+    },
+    "popularity": {
+      "users": 60000,
+      "rating": 4.9,
+      "rating_count": 3500
+    },
+    "maintenance": {
+      "version": "3.0.6",
+      "last_updated": "2026-07-18",
+      "days_since_update": 121,
+      "size": "5.14MiB"
+    },
+    "developer": {
+      "name": null,
+      "website": "https://bro-mon.world",
+      "email": "sweeeeeeezy@gmail.com",
+      "trader_status": "non-trader"
+    },
+    "privacy": {
+      "policy_url": "https://sweezy-cursors.com/privacy-policy/",
+      "disclosure": "The developer has disclosed that it will not collect or use your data.",
+      "collects_data": false,
+      "collected_data_types": [],
+      "declarations": [
+        "Not being sold to third parties, outside of the",
+        "approved use cases",
+        "Not being used or transferred for purposes that are unrelated to the item's core functionality",
+        "Not being used or transferred to determine creditworthiness or for lending purposes"
+      ]
+    },
+    "developer_explanations": {
+      "permissions": null,
+      "data_usage": null
+    },
+    "badges": {
+      "featured": true,
+      "established_publisher": true,
+      "verified_website": true,
+      "recommended_practices": true
+    },
+    "package": {
+      "path": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_0k06tpaq",
+      "file_count": 105,
+      "js_file_count": 6,
+      "total_size_bytes": 11455449,
+      "version": "3.0.6",
+      "update_url": "https://clients2.google.com/service/update2/crx",
+      "expected_id": "oedkbkpngfmjfbmmmijkogojlcddmcgf",
+      "signed_contents": {
+        "item_id": "oedkbkpngfmjfbmmmijkogojlcddmcgf",
+        "item_version": "3.0.6",
+        "signature_keys": [
+          "publisher",
+          "webstore"
+        ],
+        "signed_by_webstore": true,
+        "signed_by_publisher": true,
+        "signed_file_count": 104
+      },
+      "integrity": {
+        "files_checked": 104,
+        "files_matching": 104,
+        "files_modified": [],
+        "files_not_in_signed_list": [],
+        "signed_files_missing_from_package": []
+      }
+    },
+    "manifest_crosscheck": {
+      "package_version": "3.0.6",
+      "listing_version": "3.0.6",
+      "version_matches": true,
+      "developer_explained_permissions": false,
+      "declared_permissions": [
+        "scripting",
+        "storage"
+      ],
+      "permissions_not_mentioned_in_listing": [
+        "scripting",
+        "storage"
+      ],
+      "note": "A permission name missing from the listing text only means the developer did not use that word; many listings never mention permissions at all."
+    },
+    "analysis": {
+      "basic_structure_valid": true,
+      "errors": [],
+      "warnings": [],
+      "review_indicators": [],
+      "trust_indicators": [
+        {
+          "rule_id": "T001",
+          "type": "featured",
+          "severity": "informational",
+          "evidence": [
+            {
+              "featured": true
+            }
+          ],
+          "explanation": "Featured by the Chrome Web Store."
+        },
+        {
+          "rule_id": "T002",
+          "type": "good_publisher_record",
+          "severity": "informational",
+          "evidence": [
+            {
+              "established_publisher": true
+            }
+          ],
+          "explanation": "The publisher has no history of violations."
+        },
+        {
+          "rule_id": "T003",
+          "type": "verified_website",
+          "severity": "informational",
+          "evidence": [
+            {
+              "verified_website": true
+            }
+          ],
+          "explanation": "Created by the owner of the listed website."
+        },
+        {
+          "rule_id": "T004",
+          "type": "recommended_practices",
+          "severity": "informational",
+          "evidence": [
+            {
+              "recommended_practices": true
+            }
+          ],
+          "explanation": "Follows recommended practices for Chrome extensions."
+        },
+        {
+          "rule_id": "T101",
+          "type": "signed_by_webstore",
+          "severity": "informational",
+          "evidence": [
+            {
+              "signature_keys": [
+                "publisher",
+                "webstore"
+              ]
+            }
+          ],
+          "explanation": "The file list is signed by the Chrome Web Store."
+        },
+        {
+          "rule_id": "T102",
+          "type": "files_match_signed_hashes",
+          "severity": "informational",
+          "evidence": [
+            {
+              "files_checked": 104
+            }
+          ],
+          "explanation": "Every file in the package matches its signed hash."
+        }
+      ],
+      "limitations": [
+        "Metadata rules flag declarations and public listing text for review; they do not prove malicious behavior.",
+        "Store listing text is written by the developer and may be inaccurate or out of date.",
+        "File hashes are compared with verified_contents.json, but the signatures on that file are not cryptographically verified.",
+        "Package integrity rules need the complete package; a partial copy reports the missing files.",
+        "Thresholds such as user counts and update age are heuristics."
+      ]
+    },
+    "source": {
+      "store_listing": "http",
+      "listing_available": true,
+      "package": "provided",
+      "retrieved_at": "2026-11-16T18:32:48"
+    }
+  },
+  "cross_indicators": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis does not establish actual runtime behavior or malicious intent."
+  ],
+  "analysis_status": "partial",
+  "risk_assessment": {
+    "score": 8,
+    "rating": "low",
+    "meaning": "Review priority based on static indicators; not a probability of malware or proof of compromise.",
+    "policy_version": "1.0",
+    "contributors": [
+      {
+        "source": "manifest",
+        "type": "broad_content_script_injection",
+        "points": 8,
+        "rule_id": "R002"
+      }
+    ],
+    "confidence_note": "Incomplete analysis reduces confidence; missing evidence is not evidence of safety."
+  }
+}
