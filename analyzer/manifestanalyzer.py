@@ -74,6 +74,40 @@ def read_manifest_file(file_path):
 
     return manifest
 
+def resolve_localized_name(manifest, extension_root):
+    name = manifest.get("name")
+
+    if not isinstance(name, str):
+        return name
+
+    if not (name.startswith("__MSG_") and name.endswith("__")):
+        return name
+
+    if extension_root is None:
+        return name
+
+    key = name[6:-2]
+    locale = manifest.get("default_locale", "en")
+
+    path = (
+        Path(extension_root)
+        / "_locales"
+        / locale
+        / "messages.json"
+    )
+
+    try:
+        messages = json.loads(path.read_text(encoding="utf-8"))
+
+        for message_key, value in messages.items():
+            if message_key.lower() == key.lower():
+                return value.get("message", name)
+
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+
+    return name
+
 def read_manifest(zip_path):
     """Read manifest.json from the root of a ZIP package."""
     try:
@@ -108,7 +142,7 @@ def read_manifest(zip_path):
     return manifest
 
 
-def analyze_manifest(manifest):
+def analyze_manifest(manifest, extension_root=None):
     # Extract security-relevant metadata and basic indicators.
 
     errors = []
@@ -273,7 +307,7 @@ def analyze_manifest(manifest):
 
     return {
         "extension": {
-            "name": manifest.get("name"),
+            "name": resolve_localized_name(manifest, extension_root),
             "short_name": manifest.get("short_name"),
             "version": manifest.get("version"),
             "version_name": manifest.get("version_name"),

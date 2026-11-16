@@ -1,0 +1,263 @@
+{
+  "generator": "Fallback (OpenAI unavailable)",
+  "score": {
+    "score": 41,
+    "rating": "moderate",
+    "meaning": "Review priority based on static indicators; not a probability of malware or proof of compromise.",
+    "policy_version": "1.0",
+    "contributors": [
+      {
+        "source": "manifest",
+        "type": "broad_host_access",
+        "points": 12,
+        "rule_id": "R001"
+      },
+      {
+        "source": "access",
+        "type": "sensitive_dom_access",
+        "points": 12,
+        "rule_id": "A003"
+      },
+      {
+        "source": "network",
+        "type": "obfuscation",
+        "points": 4,
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\js\\fa-icons.js",
+        "line": 1
+      },
+      {
+        "source": "network",
+        "type": "remote_script",
+        "points": 5,
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\js\\i18n.js",
+        "line": 332
+      },
+      {
+        "source": "network",
+        "type": "dynamic_code",
+        "points": 8,
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\codemirror\\cm6.bundle.ubol.min.js",
+        "line": 1
+      }
+    ],
+    "confidence_note": "Incomplete analysis reduces confidence; missing evidence is not evidence of safety."
+  },
+  "narrative": {
+    "executive_summary": "Static review status: partial. Review priority is moderate (41/100). This is not a malware verdict.",
+    "purpose_and_scope": "Analysis of extension manifest declarations, static JavaScript evidence, and available package/store metadata.",
+    "key_findings": [
+      {
+        "title": "Broad Host Access",
+        "priority": "review",
+        "explanation": "The extension declares broad website access. Check whether its purpose requires this access.",
+        "evidence": "R001: [\"<all_urls>\"]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Programmatic Scripting",
+        "priority": "informational",
+        "explanation": "The extension requests the scripting API, which allows programmatic JavaScript or CSS injection subject to applicable access restrictions.",
+        "evidence": "R005: [{\"permission\": \"scripting\", \"required_or_optional\": \"required\"}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Sensitive Dom Access",
+        "priority": "review",
+        "explanation": "The source contains patterns associated with reading cookies, password fields, forms, or page content. Whether this is appropriate depends on the extension's purpose; transmission is not established.",
+        "evidence": "A003: [{\"type\": \"dom_access\", \"api_or_pattern\": \"document_cookie\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan__szbnod7\\\\web_accessible_resources\\\\adthrive_abd.js\", \"line\": 3, \"snippet\": \"document.cookie = `__adblocker=false; expires=${d.toUTCString()}; path=/`;\"}, {\"type\": \"dom_access\", \"api_or_pattern\": \"document_cookie\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan__szbnod7\\\\rulesets\\\\scripting\\\\scriptlet\\\\isolated\\\\scriptlet-begin.js\", \"line\": 62, \"snippet\": ",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Incomplete Access Analysis",
+        "priority": "review",
+        "explanation": "At least part of the JavaScript analysis was incomplete. Do not conclude that unobserved permissions are unused from this scan.",
+        "evidence": "A005: [{\"parse_error\": {\"type\": \"parse_error\", \"api_or_pattern\": \"javascript_parse_error\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan__szbnod7\\\\js\\\\alarms.js\", \"line\": 0, \"snippet\": \"Line 32: Unexpected token .\"}}, {\"parse_error\": {\"type\": \"parse_error\", \"api_or_pattern\": \"javascript_parse_error\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan__szbnod7\\\\js\\\\background.js\", \"line\": 0, \"snippet\": \"Line 193: Unexpected token .\"}}, {\"parse_error\": {\"type\": \"parse_erro",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "No Developer Website",
+        "priority": "review",
+        "explanation": "The developer lists no website.",
+        "evidence": "M006: [{\"developer_website\": null}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\js\\i18n.js:332 — createElement(img)",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\js\\i18n.js:334 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\web_accessible_resources\\googlesyndication_adsbygoogle.js:31 — createElement(iframe)",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\codemirror\\cm6.bundle.ubol.min.js:1 — createElement(img)",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Dynamic Code",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\codemirror\\cm6.bundle.ubol.min.js:1 — base64_blob",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Dynamic Code",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\codemirror\\cm6.bundle.ubol.min.js:1 — base64_blob",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:815 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:822 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:829 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:848 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:852 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:856 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:864 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:868 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:873 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:878 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:1609 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:1620 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:1689 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      },
+      {
+        "title": "Remote Script",
+        "priority": "review",
+        "explanation": "A heuristic JavaScript pattern was detected; execution or transmission was not confirmed.",
+        "evidence": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan__szbnod7\\lib\\regexanalyzer\\regex.js:1705 — .src =",
+        "benign_context": "The pattern may support legitimate extension functionality.",
+        "next_step": "Inspect the referenced code and verify the data flow manually."
+      }
+    ],
+    "permissions_and_access": "See the original JSON for declared permissions, Chrome API matches, and DOM access evidence.",
+    "network_and_data_handling": "Network matches are static heuristics, not proof that data was transmitted.",
+    "metadata_and_transparency": "Store metadata may be unavailable unless a store identifier is supplied.",
+    "limitations": [
+      "Static analysis does not establish actual runtime behavior or malicious intent.",
+      "Static analysis may miss indirect or dynamic behavior."
+    ],
+    "recommendations": [
+      "Inspect cited findings in source code.",
+      "Verify requested permissions against the stated extension purpose.",
+      "Use runtime testing in an isolated browser if deeper assurance is needed."
+    ]
+  }
+}

@@ -153,7 +153,7 @@ def render_html(report, narrative, llm_status, extension_root=None):
     def para(title, text):
         return f'<section><h2>{esc(title)}</h2><p>{esc(text)}</p></section>'
     score = report['risk_assessment']
-    name = resolve_extension_name(report, extension_root)
+    name = "Extension Report"
     findings = ''.join(
         '<article class="finding"><div class="findinghead"><h3>' + esc(f['title']) + '</h3><span class="pill">' + esc(f['priority']) + '</span></div>'
         + '<p>' + esc(f['explanation']) + '</p><p><strong>Evidence:</strong> ' + esc(f['evidence']) + '</p>'

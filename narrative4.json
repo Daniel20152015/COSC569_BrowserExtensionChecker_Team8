@@ -1,0 +1,109 @@
+{
+  "generator": "Fallback (OpenAI unavailable)",
+  "score": {
+    "score": 30,
+    "rating": "moderate",
+    "meaning": "Review priority based on static indicators; not a probability of malware or proof of compromise.",
+    "policy_version": "1.0",
+    "contributors": [
+      {
+        "source": "manifest",
+        "type": "broad_host_access",
+        "points": 12,
+        "rule_id": "R001"
+      },
+      {
+        "source": "manifest",
+        "type": "broad_content_script_injection",
+        "points": 8,
+        "rule_id": "R002"
+      },
+      {
+        "source": "metadata",
+        "type": "low_rating",
+        "points": 3,
+        "rule_id": "M004"
+      },
+      {
+        "source": "metadata",
+        "type": "no_privacy_policy",
+        "points": 3,
+        "rule_id": "M005"
+      },
+      {
+        "source": "network",
+        "type": "obfuscation",
+        "points": 4,
+        "file": "C:\\Users\\lidan\\AppData\\Local\\Temp\\extension_scan_tw5g6fpr\\options\\options.js",
+        "line": 1
+      }
+    ],
+    "confidence_note": "Incomplete analysis reduces confidence; missing evidence is not evidence of safety."
+  },
+  "narrative": {
+    "executive_summary": "Static review status: partial. Review priority is moderate (30/100). This is not a malware verdict.",
+    "purpose_and_scope": "Analysis of extension manifest declarations, static JavaScript evidence, and available package/store metadata.",
+    "key_findings": [
+      {
+        "title": "Broad Host Access",
+        "priority": "review",
+        "explanation": "The extension declares broad website access. Check whether its purpose requires this access.",
+        "evidence": "R001: [\"*://*/*\", \"<all_urls>\"]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Broad Content Script Injection",
+        "priority": "review",
+        "explanation": "A content script declares broad matching patterns. Check what information the script accesses on those pages.",
+        "evidence": "R002: [{\"script_index\": 0, \"matches\": [\"<all_urls>\"], \"js_files\": [\"content.js\"]}, {\"script_index\": 1, \"matches\": [\"<all_urls>\"], \"js_files\": [\"set-json-global.js\"]}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Main World Execution",
+        "priority": "informational",
+        "explanation": "A content script runs in the MAIN JavaScript world, sharing the page's JavaScript environment. Inspect its interactions with page scripts.",
+        "evidence": "R003: [{\"script_index\": 1, \"js_files\": [\"set-json-global.js\"], \"matches\": [\"<all_urls>\"]}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Incomplete Access Analysis",
+        "priority": "review",
+        "explanation": "At least part of the JavaScript analysis was incomplete. Do not conclude that unobserved permissions are unused from this scan.",
+        "evidence": "A005: [{\"parse_error\": {\"type\": \"parse_error\", \"api_or_pattern\": \"javascript_parse_error\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan_tw5g6fpr\\\\content.js\", \"line\": 0, \"snippet\": \"Line 1: Unexpected token .\"}}, {\"parse_error\": {\"type\": \"parse_error\", \"api_or_pattern\": \"javascript_parse_error\", \"file\": \"C:\\\\Users\\\\lidan\\\\AppData\\\\Local\\\\Temp\\\\extension_scan_tw5g6fpr\\\\set-json-global.js\", \"line\": 0, \"snippet\": \"Line 1: Unexpected token .\"}}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "Low Rating",
+        "priority": "review",
+        "explanation": "Users rate this extension poorly.",
+        "evidence": "M004: [{\"rating\": 1.5}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      },
+      {
+        "title": "No Privacy Policy",
+        "priority": "review",
+        "explanation": "The listing has no privacy policy link.",
+        "evidence": "M005: [{\"privacy_policy_url\": null}]",
+        "benign_context": "A matching declaration or code pattern is not evidence of malicious intent.",
+        "next_step": "Review the cited source and whether this behavior is necessary for the extension purpose."
+      }
+    ],
+    "permissions_and_access": "See the original JSON for declared permissions, Chrome API matches, and DOM access evidence.",
+    "network_and_data_handling": "Network matches are static heuristics, not proof that data was transmitted.",
+    "metadata_and_transparency": "Store metadata may be unavailable unless a store identifier is supplied.",
+    "limitations": [
+      "Static analysis does not establish actual runtime behavior or malicious intent.",
+      "Static analysis may miss indirect or dynamic behavior."
+    ],
+    "recommendations": [
+      "Inspect cited findings in source code.",
+      "Verify requested permissions against the stated extension purpose.",
+      "Use runtime testing in an isolated browser if deeper assurance is needed."
+    ]
+  }
+}
