@@ -1,0 +1,5 @@
+esprima>=4.0.1
+requests>=2.31
+beautifulsoup4>=4.12
+openai>=1.30,<3
+tiktoken>=0.7.0

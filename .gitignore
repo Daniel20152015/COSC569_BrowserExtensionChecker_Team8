@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# API secrets
+.env
+.env.*
+!.env.example
+
+# Generated security reports
+report.json
+report.html
+narrative.json
+security_report.json
+security_report.html
+narrative_report.json
+
+# Test extension packages
+*.zip
+
+# Editor files
+.vscode/
+.idea/
